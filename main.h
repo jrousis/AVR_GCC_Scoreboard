@@ -60,7 +60,8 @@
 #define Start_game_choice 3 //E4 Choice from RF remote start Game
 #define RF_remote 4 //E5 choice of RF remote / Buttons Box
 #define Monitor_Mode 5// this is for working with PC only 
-#define Centimeter 6 //				E4
+#define Centimeter 6 //				E7
+#define Mode 7 //				E8
 #endif
 
 

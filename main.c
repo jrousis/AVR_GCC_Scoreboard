@@ -255,17 +255,18 @@ ISR(TIMER2_OVF_vect)
 	
 	if (user_instruction=='A' | user_instruction=='B')
 	{
-		c--;	//Counter Down process
-		if (c<0) {
+		c--;	//Counter Down Normal process
+		if (c>0x59) {
 			c=0x59;
 			b--;
-			if (b<0) {
+			if (b>0x59) {
 				b=0x59;
 				a--;
-			}else if ((b&0x0f)>9) {
+				if ((a&0x0f)>9){a-=6;}
+				}else if ((b&0x0f)>9) {
 				b-=6;
 			}
-		}else if ((c&0x0f)>9) {
+			}else if ((c&0x0f)>9) {
 			c-=6;
 		}
 	}
@@ -281,6 +282,13 @@ ISR(TIMER2_OVF_vect)
 						//if ((a&0x0f)>9)	{a+=6;}
 						b=0;
 					}else{b+=6;}				
+				}
+				if (eeprom_read_byte((uint8_t*)FAV_eep + Mode) == 1)
+				{
+					if (b==0x45 || b==0x90)
+					{
+						TCCR2B =0;
+					}
 				}
 				c=0;
 			}else{c+=6;}			
